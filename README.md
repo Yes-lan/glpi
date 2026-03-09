@@ -68,11 +68,15 @@ docker compose down
 docker compose exec db sh -c "mysqldump -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE" > glpi-backup.sql
 ```
 
-## 7) Captures
+## 7) Captures écran
 
-Place tes captures dans le dossier `captures/`.
+### Installation en cours
+![Capture installation GLPI](captures/Capture%20d%E2%80%99%C3%A9cran%202026-03-09%20092041.png)
+
+Autres captures disponibles dans le dossier [`captures/`](captures/).
 
 Références utiles :
 
 - [Guide détaillé](INSTALL_GLPI_DOCKER.md)
 - [Checklist captures](captures/README.md)
+- [Modèle de légendes](captures/MODELE_LEGENDES.md)
