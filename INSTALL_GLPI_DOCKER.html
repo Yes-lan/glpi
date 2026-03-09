@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Installation détaillée GLPI avec Docker</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 40px; color: #111; line-height: 1.45; }
+    h1, h2 { color: #0f172a; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 24px; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; }
+    code, pre { font-family: Consolas, monospace; }
+    pre { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; white-space: pre-wrap; }
+    ul { margin-top: 6px; }
+    .muted { color: #475569; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Installation détaillée de GLPI avec Docker (Windows)</h1>
+  <p class="muted">Guide adapté au dossier: c:\Users\npichon\Desktop\glpi</p>
+
+  <h2>1) Prérequis</h2>
+  <ul>
+    <li>Docker Desktop installé et démarré</li>
+    <li>WSL2 activé (recommandé)</li>
+    <li>Port 8080 disponible</li>
+  </ul>
+  <pre>docker --version
+docker compose version
+docker info</pre>
+
+  <h2>2) Démarrage</h2>
+  <pre>docker compose pull
+docker compose up -d
+docker compose ps</pre>
+  <p>Accès GLPI: http://localhost:8080</p>
+
+  <h2>3) Installation web GLPI</h2>
+  <ul>
+    <li>Langue → Licence → Installer</li>
+    <li>Serveur DB: <b>mysql</b></li>
+    <li>Base: <b>glpi</b></li>
+    <li>Utilisateur: <b>glpi</b></li>
+    <li>Mot de passe: <b>glpi</b></li>
+  </ul>
+
+  <h2>4) Sécurité minimale</h2>
+  <ul>
+    <li>Changer immédiatement les mots de passe par défaut</li>
+    <li>Créer un admin nominatif</li>
+    <li>Épingler les versions d'images en production</li>
+  </ul>
+
+  <h2>5) Sauvegarde</h2>
+  <pre>docker compose exec db sh -c "mysqldump -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE" &gt; glpi-backup.sql</pre>
+
+  <h2>6) Checklist captures d'écran</h2>
+  <ul>
+    <li>01-page-accueil-installation.png</li>
+    <li>02-parametres-base-de-donnees.png</li>
+    <li>03-initialisation-terminee.png</li>
+    <li>04-ecran-connexion-glpi.png</li>
+    <li>05-dashboard-admin.png</li>
+    <li>06-configuration-generale.png</li>
+  </ul>
+  <p>Sur Windows: Win + Shift + S puis enregistrer dans le dossier captures/.</p>
+</body>
+</html>

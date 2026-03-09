@@ -1,0 +1,33 @@
+name: glpi
+services:
+  glpi:
+    image: "glpi/glpi:latest"
+    restart: "unless-stopped"
+    volumes:
+       # Using a named volume avoids permission issues on host (automatically managed by Docker)
+       - glpi_data:/var/glpi
+      # For GLPI 10.x, uncomment the following line to create a volume for plugins fetched from the marketplace.
+      # - "./storage/glpi_marketplace:/var/www/glpi/marketplace/:rw"
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+
+  db:
+    image: "mysql"
+    restart: "unless-stopped"
+    volumes:
+       - db_data:/var/lib/mysql
+    networks:
+      default:
+        aliases:
+          - mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: ${DB_NAME:-glpi}
+      MYSQL_USER: ${DB_USER:-glpi}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-glpi}
+
+volumes:
+   glpi_data:
+   db_data:
